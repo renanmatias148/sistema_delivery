@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Sistema Delivery{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  {% block head %}{% endblock %}
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      {% if session.get('usuario_tipo') in ['superadmin', 'gestor'] %}
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-bell"></i>
+          <span class="badge badge-warning navbar-badge" id="notificacao-count">0</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span class="dropdown-header" id="notificacao-header">0 notificações</span>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item" id="notificacao-pedidos">Nenhum pedido novo</a>
+          <a href="#" class="dropdown-item" id="notificacao-estoque">Nenhum alerta de estoque</a>
+        </div>
+      </li>
+      {% elif session.get('usuario_tipo') == 'cliente' %}
+      <li class="nav-item dropdown">
+        <a class="nav-link" href="#">
+          <i class="far fa-bell"></i>
+          <span class="badge badge-danger navbar-badge" id="cliente-alert-count">0</span>
+        </a>
+      </li>
+      {% endif %}
+      {% if session.get('usuario_tipo') %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('auth.logout') }}">
+          <i class="fas fa-sign-out-alt"></i>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="#" class="brand-link text-center">
+      <span class="brand-text font-weight-light">Delivery App</span>
+    </a>
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column">
+          {% if session.get('usuario_tipo') == 'superadmin' %}
+            <li class="nav-item"><a href="{{ url_for('admin.super_dashboard') }}" class="nav-link"><i class="nav-icon fas fa-tachometer-alt"></i> <p>Dashboard Geral</p></a></li>
+            <li class="nav-item"><a href="{{ url_for('admin.listar_usuarios') }}" class="nav-link"><i class="nav-icon fas fa-users"></i> <p>Usuários</p></a></li>
+            <li class="nav-item"><a href="{{ url_for('admin.ver_logs') }}" class="nav-link"><i class="nav-icon fas fa-file-alt"></i> <p>Logs</p></a></li>
+            <li class="nav-item"><a href="{{ url_for('admin.perfil') }}" class="nav-link"><i class="nav-icon fas fa-user-cog"></i> <p>Perfil</p></a></li>
+            <li class="nav-item"><a href="{{ url_for('admin.alterar_senha') }}" class="nav-link"><i class="nav-icon fas fa-key"></i> <p>Alterar Senha</p></a></li>
+            <li class="nav-item"><a href="{{ url_for('admin.acoes') }}" class="nav-link"><i class="nav-icon fas fa-history"></i> <p>Ações</p></a></li>
+            <li class="nav-item"><a href="{{ url_for('admin.ranking') }}" class="nav-link"><i class="nav-icon fas fa-medal"></i> <p>Ranking de Produtos</p></a></li>
+            {% elif session.get('usuario_tipo') == 'gestor' %}
+            <li class="nav-item"><a href="{{ url_for('admin.dashboard') }}" class="nav-link"><i class="nav-icon fas fa-chart-bar"></i> <p>Relatórios</p></a></li>
+            <li class="nav-item"><a href="{{ url_for('admin.perfil') }}" class="nav-link"><i class="nav-icon fas fa-user-cog"></i> <p>Perfil</p></a></li>
+            <li class="nav-item"><a href="{{ url_for('admin.alterar_senha') }}" class="nav-link"><i class="nav-icon fas fa-key"></i> <p>Alterar Senha</p></a></li>
+          {% elif session.get('usuario_tipo') == 'entregador' %}
+            <li class="nav-item"><a href="{{ url_for('entregador.painel') }}" class="nav-link"><i class="nav-icon fas fa-truck"></i> <p>Entregas</p></a></li>
+            <li class="nav-item"><a href="{{ url_for('entregador.alterar_senha') }}" class="nav-link"><i class="nav-icon fas fa-key"></i> <p>Alterar Senha</p></a></li>
+          {% elif session.get('usuario_tipo') == 'cliente' %}
+            <li class="nav-item"><a href="{{ url_for('cliente.painel') }}" class="nav-link"><i class="nav-icon fas fa-user"></i> <p>Meus Pedidos</p></a></li>
+            <li class="nav-item"><a href="{{ url_for('cliente.perfil') }}" class="nav-link"><i class="nav-icon fas fa-id-card"></i> <p>Perfil</p></a></li>
+            <li class="nav-item"><a href="{{ url_for('cliente.alterar_senha') }}" class="nav-link"><i class="nav-icon fas fa-key"></i> <p>Alterar Senha</p></a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="content-wrapper">
+    <section class="content pt-4">
+      <div class="container-fluid">
+        {% block content %}{% endblock %}
+      </div>
+    </section>
+  </div>
+
+  <footer class="main-footer text-center">
+    <strong>Sistema Delivery</strong> &copy; 2025
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const usuario_tipo = "{{ session.get('usuario_tipo') }}";
+  function atualizarNotificacoes() {
+    fetch("/notificacoes/atualizar")
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("notificacao-count").textContent = data.total;
+        document.getElementById("notificacao-header").textContent = `${data.total} notificações`;
+        document.getElementById("notificacao-pedidos").textContent = `📦 ${data.novos_pedidos} pedidos pendentes`;
+        document.getElementById("notificacao-estoque").textContent = `⚠️ ${data.estoque_baixo} itens com estoque baixo`;
+      });
+  }
+  function buscarNotificacoesCliente() {
+    fetch('/notificacoes/cliente')
+      .then(res => res.json())
+      .then(data => {
+        if (data.length > 0) {
+          document.getElementById('cliente-alert-count').textContent = data.length;
+          data.forEach(n => {
+            new Notification('📦 Atualização do Pedido', {
+              body: n.mensagem,
+              icon: '/static/img/notificacao.png'
+            });
+          });
+        }
+      });
+  }
+  setInterval(() => {
+    if (usuario_tipo === 'cliente') {
+      buscarNotificacoesCliente();
+    } else {
+      atualizarNotificacoes();
+    }
+  }, 15000);
+  if (usuario_tipo === 'cliente') {
+    buscarNotificacoesCliente();
+  } else {
+    atualizarNotificacoes();
+  }
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>👥 Novo Funcionário</h2>
+<form method="post">
+  <label>Nome:</label>
+  <input type="text" name="nome" class="form-control" required>
+
+  <label>Email:</label>
+  <input type="email" name="email" class="form-control" required>
+
+  <label>Senha:</label>
+  <input type="password" name="senha" class="form-control" required>
+
+  <label>Tipo:</label>
+  <select name="tipo" class="form-control">
+    <option value="admin">Admin</option>
+    <option value="gestor">Gestor</option>
+    <option value="entregador">Entregador</option>
+  </select>
+
+  <button class="btn btn-success mt-3">Salvar</button>
+</form>
+{% endblock %}

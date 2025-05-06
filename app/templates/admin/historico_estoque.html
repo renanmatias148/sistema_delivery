@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Histórico de {{ produto.nome }}{% endblock %}
+{% block content %}
+<h2>📈 Histórico de Movimentações: {{ produto.nome }}</h2>
+<form method="get" class="row mb-4">
+    <div class="col-md-3">
+      <label>De:</label>
+      <input type="date" name="inicio" class="form-control" value="{{ data_inicio }}">
+    </div>
+    <div class="col-md-3">
+      <label>Até:</label>
+      <input type="date" name="fim" class="form-control" value="{{ data_fim }}">
+    </div>
+    <div class="col-md-3 mt-4">
+      <button class="btn btn-primary mt-2">🔍 Filtrar</button>
+      <a href="{{ url_for('estoque.historico', produto_id=produto.id) }}" class="btn btn-secondary mt-2">🔄 Limpar</a>
+    </div>
+    <div class="mb-3">
+        <a href="{{ url_for('estoque.exportar_pdf', produto_id=produto.id) }}" class="btn btn-danger">📄 Exportar PDF</a>
+        <a href="{{ url_for('estoque.exportar_excel', produto_id=produto.id) }}" class="btn btn-success">📊 Exportar Excel</a>
+      </div>      
+  </form>  
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Tipo</th>
+      <th>Quantidade</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for mov in movimentacoes %}
+    <tr>
+      <td>{{ mov.data.strftime('%d/%m/%Y %H:%M') }}</td>
+      <td>
+        {% if mov.tipo == 'entrada' %}
+          <span class="badge bg-success">Entrada</span>
+        {% else %}
+          <span class="badge bg-danger">Saída</span>
+        {% endif %}
+      </td>
+      <td>{{ mov.quantidade }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{{ url_for('estoque.visualizar_estoque') }}" class="btn btn-secondary">🔙 Voltar</a>
+{% endblock %}

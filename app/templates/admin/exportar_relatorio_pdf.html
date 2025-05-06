@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Relatório Financeiro</title>
+  <style>
+    body { font-family: sans-serif; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 6px; text-align: left; }
+    th { background-color: #eee; }
+  </style>
+</head>
+<body>
+  <h2>Relatório Financeiro - {{ mes }}/{{ ano }}</h2>
+  <table>
+    <thead><tr><th>Descrição</th><th>Tipo</th><th>Valor</th><th>Vencimento</th></tr></thead>
+    <tbody>
+      {% for c in contas %}
+      <tr>
+        <td>{{ c.descricao }}</td>
+        <td>{{ c.tipo }}</td>
+        <td>R$ {{ '%.2f'|format(c.valor) }}</td>
+        <td>{{ c.vencimento.strftime('%d/%m/%Y') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p><strong>Total:</strong> R$ {{ '%.2f'|format(total) }}</p>
+</body>
+</html>

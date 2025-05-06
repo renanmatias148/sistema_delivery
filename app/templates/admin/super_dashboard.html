@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard Geral{% endblock %}
+{% block content %}
+<h2>📊 Painel Geral do Sistema</h2>
+
+<div class="row">
+  <div class="col-md-3"><div class="card bg-info text-white p-3">👥 Usuários: {{ total_usuarios }}</div></div>
+  <div class="col-md-3"><div class="card bg-success text-white p-3">📦 Pedidos: {{ total_pedidos }}</div></div>
+  <div class="col-md-3"><div class="card bg-warning text-dark p-3">🧾 Vendas: R$ {{ '%.2f' % total_vendas }}</div></div>
+  <div class="col-md-3"><div class="card bg-secondary text-white p-3">👤 Clientes: {{ total_clientes }}</div></div>
+</div>
+
+<h4 class="mt-4">🕒 Últimos Acessos</h4>
+<table class="table table-sm">
+  <thead><tr><th>ID</th><th>Tipo</th><th>IP</th><th>Data</th></tr></thead>
+  <tbody>
+    {% for log in logs %}
+    <tr>
+      <td>{{ log.usuario_id }}</td>
+      <td>{{ log.tipo }}</td>
+      <td>{{ log.ip }}</td>
+      <td>{{ log.data.strftime('%d/%m/%Y %H:%M') }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{{ url_for('admin.listar_usuarios') }}" class="btn btn-outline-primary mt-3">👥 Gerenciar Usuários</a>
+<a href="{{ url_for('admin.ver_logs') }}" class="btn btn-outline-secondary mt-3">📋 Ver Logs</a>
+{% endblock %}

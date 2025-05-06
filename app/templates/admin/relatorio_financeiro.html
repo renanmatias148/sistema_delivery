@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Relatório Financeiro{% endblock %}
+{% block content %}
+<h2>💰 Relatório Financeiro</h2>
+
+<form method="get" class="row mb-4">
+  <div class="col-md-2">
+    <label>Mês:</label>
+    <select name="mes" class="form-control">
+      {% for m in range(1, 13) %}
+        <option value="{{ m }}" {% if m == mes|int %}selected{% endif %}>{{ m }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label>Ano:</label>
+    <input type="number" name="ano" class="form-control" value="{{ ano }}">
+  </div>
+  <div class="col-md-3 mt-4">
+    <button class="btn btn-primary mt-2">🔍 Filtrar</button>
+    <a href="{{ url_for('admin.relatorio_financeiro') }}" class="btn btn-secondary mt-2">🔄 Limpar</a>
+  </div>
+</form>
+
+<div class="mb-3">
+  <a href="{{ url_for('admin.exportar_relatorio_pdf', mes=mes, ano=ano) }}" class="btn btn-danger">📄 Exportar PDF</a>
+  <a href="{{ url_for('admin.exportar_relatorio_excel', mes=mes, ano=ano) }}" class="btn btn-success">📊 Exportar Excel</a>
+</div>
+
+<table class="table table-striped">
+  <thead><tr><th>Descrição</th><th>Tipo</th><th>Valor</th><th>Vencimento</th></tr></thead>
+  <tbody>
+    {% for c in contas %}
+    <tr>
+      <td>{{ c.descricao }}</td>
+      <td>
+        {% if c.tipo == 'receber' %}
+          <span class="badge bg-success">Receber</span>
+        {% else %}
+          <span class="badge bg-danger">Pagar</span>
+        {% endif %}
+      </td>
+      <td>R$ {{ '%.2f'|format(c.valor) }}</td>
+      <td>{{ c.vencimento.strftime('%d/%m/%Y') }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h5 class="text-end">🧾 Total do Mês: <strong>R$ {{ '%.2f'|format(total) }}</strong></h5>
+{% endblock %}

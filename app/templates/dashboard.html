@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Sistema de Delivery</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4">🏠 Sistema de Delivery</h1>
+        <p class="lead">Bem-vindo! Escolha uma ação:</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <a href="{{ url_for('produto.cadastrar_produto') }}" class="btn btn-primary btn-lg w-100">Cadastrar Produto</a>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ url_for('produto.listar_produtos') }}" class="btn btn-outline-primary btn-lg w-100">Listar Produtos</a>
+        </div>
+
+        <div class="col-md-6">
+            <a href="{{ url_for('categoria.cadastrar_categoria') }}" class="btn btn-success btn-lg w-100">Cadastrar Categoria</a>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ url_for('categoria.listar_categorias') }}" class="btn btn-outline-success btn-lg w-100">Listar Categorias</a>
+        </div>
+
+        <div class="col-md-6">
+            <a href="{{ url_for('ingrediente.cadastrar_ingrediente') }}" class="btn btn-warning btn-lg w-100">Cadastrar Ingrediente</a>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ url_for('ingrediente.listar_ingredientes') }}" class="btn btn-outline-warning btn-lg w-100">Listar Ingredientes</a>
+        </div>
+
+        <div class="col-md-6">
+            <a href="{{ url_for('adicional.cadastrar_adicional') }}" class="btn btn-info btn-lg w-100">Cadastrar Adicional</a>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ url_for('adicional.listar_adicionais') }}" class="btn btn-outline-info btn-lg w-100">Listar Adicionais</a>
+        </div>
+        <div class="col-md-12">
+            <a href="{{ url_for('ficha_tecnica.cadastrar_ficha_tecnica') }}" class="btn btn-dark btn-lg w-100">Cadastrar Ficha Técnica</a>
+        </div>   
+        <div class="col-md-12">
+            <a href="{{ url_for('venda.realizar_venda') }}" class="btn btn-danger btn-lg w-100">Realizar Venda</a>
+        </div>
+        <div class="col-md-12">
+            <a href="{{ url_for('relatorio.relatorio_estoque') }}" class="btn btn-outline-dark btn-lg w-100">📋 Relatório de Estoque</a>
+        </div>    
+        <div class="col-md-12">
+            <a href="{{ url_for('financeiro.registrar_movimentacao') }}" class="btn btn-outline-success btn-lg w-100">Registrar Entrada/Saída</a>
+        </div>
+        <div class="col-md-12">
+            <a href="{{ url_for('financeiro.relatorio_financeiro') }}" class="btn btn-outline-primary btn-lg w-100">📊 Relatório Financeiro</a>
+        </div>  
+        <div class="col-md-12">
+            <a href="{{ url_for('conta.cadastrar_conta') }}" class="btn btn-outline-warning btn-lg w-100">➕ Cadastrar Conta</a>
+        </div>
+        <div class="col-md-12">
+            <a href="{{ url_for('conta.relatorio_contas') }}" class="btn btn-outline-danger btn-lg w-100">📋 Relatório de Contas</a>
+        </div>                  
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

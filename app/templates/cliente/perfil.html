@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Meu Perfil{% endblock %}
+{% block content %}
+<h2>👤 Meu Perfil</h2>
+<form method="post">
+  <div class="mb-3">
+    <label>Nome:</label>
+    <input type="text" name="nome" class="form-control" value="{{ cliente.nome }}" required>
+  </div>
+  <div class="mb-3">
+    <label>Email:</label>
+    <input type="email" name="email" class="form-control" value="{{ cliente.email }}" required>
+  </div>
+  <button class="btn btn-primary">Atualizar</button>
+</form>
+{% endblock %}

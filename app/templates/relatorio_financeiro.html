@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório Financeiro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Importa o Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <h1>📊 Relatório Financeiro</h1>
+
+    <table class="table table-striped table-bordered mt-4">
+        <thead class="table-dark">
+            <tr>
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Descrição</th>
+                <th>Valor (R$)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in movimentacoes %}
+            <tr {% if m.tipo == 'saida' %} class="table-danger" {% else %} class="table-success" {% endif %}>
+                <td>{{ m.data }}</td>
+                <td>{{ m.tipo.capitalize() }}</td>
+                <td>{{ m.descricao }}</td>
+                <td>{{ "%.2f"|format(m.valor) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2 class="mt-4">Saldo Atual: R$ {{ "%.2f"|format(saldo) }}</h2>
+
+    <!-- Gráfico de Pizza -->
+    <div class="mt-5">
+        <h3>Resumo em Gráfico:</h3>
+        <canvas id="graficoFinanceiro" width="400" height="400"></canvas>
+    </div>
+
+    <a href="{{ url_for('home') }}" class="btn btn-secondary mt-5">🏠 Voltar para o Dashboard</a>
+</div>
+
+<script>
+    const ctx = document.getElementById('graficoFinanceiro').getContext('2d');
+
+    const graficoFinanceiro = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Entradas', 'Saídas'],
+            datasets: [{
+                label: 'Financeiro',
+                data: [{ entradas }, { saidas }],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.7)', // verde água
+                    'rgba(255, 99, 132, 0.7)'  // vermelho claro
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        }
+    });
+</script>
+
+</body>
+</html>

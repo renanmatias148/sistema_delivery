@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Recibo Pedido #{{ pedido.id }}{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h4>🧾 Recibo do Pedido #{{ pedido.id }}</h4>
+    </div>
+    <div class="card-body">
+      <p><strong>Cliente:</strong> {{ pedido.cliente.nome }}</p>
+      <p><strong>Data:</strong> {{ pedido.created_at.strftime('%d/%m/%Y %H:%M') }}</p>
+      <p><strong>Status:</strong> {{ pedido.status }}</p>
+
+      <table class="table">
+        <thead><tr><th>Produto</th><th>Qtd</th><th>Preço</th></tr></thead>
+        <tbody>
+        {% for item in pedido.itens %}
+          <tr>
+            <td>{{ item.produto_nome }}</td>
+            <td>{{ item.quantidade }}</td>
+            <td>R$ {{ '%.2f' % (item.quantidade * item.preco_unitario) }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <h5>Total: R$ {{ '%.2f' % pedido.total }}</h5>
+    </div>
+    <div class="card-footer text-end">
+      <a href="#" onclick="window.print()" class="btn btn-secondary">🖨️ Imprimir</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

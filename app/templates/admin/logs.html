@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Log de Acessos{% endblock %}
+{% block content %}
+<h2>📋 Últimos Acessos</h2>
+<table class="table table-sm">
+  <thead><tr><th>Usuário</th><th>Tipo</th><th>IP</th><th>Data</th></tr></thead>
+  <tbody>
+    {% for log in logs %}
+    <tr>
+      <td>{{ log.usuario_id }}</td>
+      <td>{{ log.tipo }}</td>
+      <td>{{ log.ip }}</td>
+      <td>{{ log.data.strftime('%d/%m/%Y %H:%M') }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

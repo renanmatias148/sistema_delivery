@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Ranking de Produtos{% endblock %}
+{% block content %}
+<h2>🏆 Produtos Mais Vendidos</h2>
+
+<form method="get" class="row mb-3">
+  <div class="col-md-3">
+    <label>De:</label>
+    <input type="date" name="inicio" class="form-control" value="{{ data_inicio }}">
+  </div>
+  <div class="col-md-3">
+    <label>Até:</label>
+    <input type="date" name="fim" class="form-control" value="{{ data_fim }}">
+  </div>
+  <div class="col-md-3 mt-4">
+    <button class="btn btn-primary mt-2">🔍 Filtrar</button>
+    <a href="{{ url_for('admin.ranking') }}" class="btn btn-secondary mt-2">🔄 Limpar</a>
+  </div>
+  <div class="mb-3">
+    <a href="{{ url_for('admin.ranking_pdf', inicio=data_inicio, fim=data_fim) }}" class="btn btn-danger">📄 Exportar PDF</a>
+    <a href="{{ url_for('admin.ranking_excel', inicio=data_inicio, fim=data_fim) }}" class="btn btn-success">📊 Exportar Excel</a>
+  </div>  
+</form>
+<h2>🏆 Produtos Mais Vendidos</h2>
+<table class="table table-striped">
+  <thead>
+    <tr><th>#</th><th>Produto</th><th>Total Vendido</th></tr>
+  </thead>
+  <tbody>
+    {% for nome, total in ranking %}
+    <tr>
+      <td>{{ loop.index }}</td>
+      <td>{{ nome }}</td>
+      <td><strong>{{ total }}</strong> unidades</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

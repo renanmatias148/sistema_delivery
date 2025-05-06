@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Registrar Movimentação{% endblock %}
+{% block content %}
+<h2>💰 Registrar Entrada/Saída</h2>
+<form method="POST">
+  <div class="mb-3">
+    <label>Tipo:</label>
+    <select name="tipo" class="form-control" required>
+      <option value="entrada">Entrada</option>
+      <option value="saida">Saída</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label>Valor:</label>
+    <input type="number" step="0.01" name="valor" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Descrição:</label>
+    <textarea name="descricao" class="form-control" required></textarea>
+  </div>
+  <button class="btn btn-success">Registrar</button>
+</form>
+{% endblock %}

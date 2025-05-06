@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Alterar Senha{% endblock %}
+{% block content %}
+<h2>🔐 Alterar Senha do Entregador</h2>
+<form method="post">
+  <div class="mb-3">
+    <label>Senha Atual:</label>
+    <input type="password" name="senha_atual" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Nova Senha:</label>
+    <input type="password" name="nova_senha" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Confirmar Nova Senha:</label>
+    <input type="password" name="confirmar_senha" class="form-control" required>
+  </div>
+  <button class="btn btn-primary">Salvar</button>
+</form>
+{% endblock %}

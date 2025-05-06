@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Estoque{% endblock %}
+{% block content %}
+<h2>📦 Controle de Estoque</h2>
+<form method="post" action="{{ url_for('estoque.movimentar') }}">
+  <div class="row">
+    <div class="col-md-4">
+      <label>Produto:</label>
+      <select name="produto_id" class="form-control">
+        {% for p in produtos %}
+        <option value="{{ p.id }}">{{ p.nome }}</option>
+        {% endfor %}
+        <a href="{{ url_for('estoque.historico', produto_id=p.id) }}" class="btn btn-sm btn-outline-info">🔍 Histórico</a>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label>Tipo:</label>
+      <select name="tipo" class="form-control">
+        <option value="entrada">Entrada</option>
+        <option value="saida">Saída</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label>Quantidade:</label>
+      <input type="number" name="quantidade" step="0.01" class="form-control">
+    </div>
+    <div class="col-md-2 mt-4">
+      <button class="btn btn-primary mt-2">Salvar</button>
+    </div>
+  </div>
+</form>
+{% endblock %}

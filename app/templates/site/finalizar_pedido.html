@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Finalizar Pedido</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark mb-5">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">🍔 Meu Delivery</span>
+    </div>
+</nav>
+
+<div class="container">
+    <h1 class="mb-5 text-center">📝 Finalizar Pedido</h1>
+
+    <form action="{{ url_for('site.finalizar_pedido') }}" method="post" class="row g-3">
+        <div class="col-md-6">
+            <label for="nome" class="form-label">Nome:</label>
+            <input type="text" name="nome" id="nome" class="form-control" required>
+        </div>
+
+        <div class="col-md-6">
+            <label for="telefone" class="form-label">Telefone:</label>
+            <input type="text" name="telefone" id="telefone" class="form-control" required>
+        </div>
+
+        <div class="col-12">
+            <label for="endereco" class="form-label">Endereço de Entrega:</label>
+            <textarea name="endereco" id="endereco" class="form-control" rows="3" required></textarea>
+        </div>
+
+        <div class="col-12">
+            <h4>Total: R$ {{ "%.2f"|format(total) }}</h4>
+            <button type="submit" class="btn btn-success btn-lg w-100 mt-3">✅ Confirmar Pedido</button>
+        </div>
+    </form>
+
+    <a href="{{ url_for('site.ver_carrinho') }}" class="btn btn-secondary mt-5">🔙 Voltar para o Carrinho</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

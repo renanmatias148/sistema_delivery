@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Painel do Entregador{% endblock %}
+{% block content %}
+<h2>🚚 Pedidos para Entrega</h2>
+{% for pedido in pedidos %}
+<div class="card mb-3">
+  <div class="card-header">
+    <strong>Pedido #{{ pedido.id }}</strong>
+  </div>
+  <div class="card-body">
+    <p><strong>Cliente:</strong> {{ pedido.cliente.nome }}</p>
+    <p><strong>Status:</strong> {{ pedido.status }}</p>
+    <p><strong>Total:</strong> R$ {{ '%.2f' % pedido.total }}</p>
+  </div>
+  <div class="card-footer text-end">
+    {% if pedido.status == 'saiu' %}
+    <form method="post" action="{{ url_for('entregador.marcar_entregue', pedido_id=pedido.id) }}">
+      <button type="submit" class="btn btn-success">✅ Marcar como Entregue</button>
+    </form>
+    <form method="post" action="{{ url_for('entregador.aceitar_entrega', pedido_id=pedido.id) }}">
+        <button class="btn btn-info">🚚 Aceitar Entrega</button>
+      </form>      
+    {% else %}
+    <span class="badge bg-secondary">Aguardando saída</span>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

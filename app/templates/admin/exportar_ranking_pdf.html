@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Ranking de Produtos</title>
+  <style>
+    body { font-family: sans-serif; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 6px; text-align: left; }
+    th { background-color: #eee; }
+  </style>
+</head>
+<body>
+  <h2>Ranking de Produtos Mais Vendidos</h2>
+  {% if data_inicio or data_fim %}
+    <p>Período:
+      {% if data_inicio %} De {{ data_inicio }} {% endif %}
+      {% if data_fim %} até {{ data_fim }} {% endif %}
+    </p>
+  {% endif %}
+  <table>
+    <thead><tr><th>#</th><th>Produto</th><th>Quantidade</th></tr></thead>
+    <tbody>
+      {% for nome, total in ranking %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ nome }}</td>
+        <td>{{ total }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Redefinir Senha{% endblock %}
+{% block content %}
+<h2>🔐 Nova Senha</h2>
+<form method="post">
+  <div class="mb-3">
+    <label>Nova Senha:</label>
+    <input type="password" name="nova" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Confirmar Nova Senha:</label>
+    <input type="password" name="confirmar" class="form-control" required>
+  </div>
+  <button class="btn btn-success">Salvar</button>
+</form>
+{% endblock %}

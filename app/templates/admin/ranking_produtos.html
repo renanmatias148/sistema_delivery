@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Ranking de Produtos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark mb-5">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">🏆 Ranking de Produtos</span>
+    </div>
+</nav>
+
+<div class="container text-center">
+    <h1 class="mb-5">Top 10 Produtos Mais Vendidos</h1>
+
+    {% if ranking %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade Vendida</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produto, total in ranking %}
+            <tr>
+                <td>{{ produto }}</td>
+                <td>{{ total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Nenhum produto vendido ainda.</p>
+    {% endif %}
+
+    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary mt-5">🏠 Voltar ao Dashboard</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

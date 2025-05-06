@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>👨‍💼 Gestão de Funcionários</h2>
+<a href="{{ url_for('funcionarios.novo_funcionario') }}" class="btn btn-primary mb-3">+ Novo Funcionário</a>
+<table class="table table-striped">
+  <thead><tr><th>Nome</th><th>Email</th><th>Tipo</th><th>Ações</th></tr></thead>
+  <tbody>
+    {% for f in funcionarios %}
+    <tr>
+      <td>{{ f.nome }}</td>
+      <td>{{ f.email }}</td>
+      <td>{{ f.tipo }}</td>
+      <td>
+        <a href="{{ url_for('funcionarios.editar_funcionario', id=f.id) }}" class="btn btn-sm btn-warning">Editar</a>
+        <form method="post" action="{{ url_for('funcionarios.excluir_funcionario', id=f.id) }}" style="display:inline;" onsubmit="return confirm('Excluir?')">
+          <button class="btn btn-sm btn-danger">Excluir</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
